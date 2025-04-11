@@ -1,0 +1,28 @@
+from itertools import groupby
+
+def factorial(0) = 1
+
+addpattern def factorial(int() as n if n > 0) =
+    """Compute n! where n is an integer >= 0."""
+    range(1, n+1) |> reduce$(*)
+
+def mapTuple(tpl, l=None, r=None) =
+  (x, y) = tpl
+  x = l(x) if l is not None else x
+  y = r(y) if r is not None else y
+  (x, y)
+
+
+def keyfunc(x) = x % 2 == 0
+range(0, 10) \
+  |> sorted$(key=keyfunc) \
+  |> groupby$(key=keyfunc) \
+  |> fmap$(mapTuple$(r=list)) \
+  |> list \
+  |> print
+
+# Test cases:
+# -1 |> factorial |> print  # TypeError
+# 0.5 |> factorial |> print  # TypeError
+# 0 |> factorial |> print  # 1
+# 3 |> factorial |> print  # 6
